@@ -25,12 +25,18 @@ const loadImage = (event) => {
   }
 
   form.style.display = 'block';
-  filename.innerText = file.name;
-  outputPath.innerText = path.join(os.homedir(), 'imageresizer')
+  filename.innerText = img.files[0].name;
+  outputPath.innerText = path.join(os.homedir(), '/Documents/ElectronStudy/imageResizer/uploads')
 };
 
-//Send Image Data to main
-const sendImage = (event) => {
+// Make Sure file is image
+const isFileImage = (file) => {
+  const acceptedImageTypes = ['image/gif', 'image/png', 'image/jpeg', 'image/jpg'];
+  return file && acceptedImageTypes.includes(file['type']);
+};
+
+//Send Image Data to main (Resize Image)
+const resizeImage = (event) => {
   event.preventDefault();
 
   const width = widthInput.value;
@@ -58,13 +64,7 @@ const sendImage = (event) => {
 // Catch the image:done event
 ipcRenderer.on('image:done', () => {
   alertSuccess(`Image resized to ${widthInput.value} x ${heightInput.value}`)
-})
-
-// Make Sure file is image
-const isFileImage = (file) => {
-  const acceptedImageTypes = ['image/gif', 'image/png', 'image/jpeg', 'image/jpg'];
-  return file && acceptedImageTypes.includes(file['type']);
-};
+});
 
 const alertError = (message) => {
   Toastify.toast({
@@ -93,4 +93,4 @@ const alertSuccess = (message) => {
 };
 
 img.addEventListener('change', loadImage);
-form.addEventListener('submit', sendImage)
+form.addEventListener('submit', resizeImage)
