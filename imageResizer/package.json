@@ -1,0 +1,15 @@
+{
+  "name": "resize-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "author": "chaeyunsim",
+  "license": "ISC",
+  "dependencies": {
+    "electron": "^22.0.1",
+    "npm": "^9.2.0"
+  }
+}
