@@ -12,7 +12,7 @@ const loadImage = (event) => {
   const file = event.target.files[0];
 
   if (!isFileImage(file)) {
-    console.log('Please select an image.')
+    alertError('Please select an image.');
     return;
   };
 
@@ -33,6 +33,32 @@ const loadImage = (event) => {
 const isFileImage = (file) => {
   const acceptedImageTypes = ['image/gif', 'image/png', 'image/jpeg', 'image/jpg'];
   return file && acceptedImageTypes.includes(file['type']);
-}
+};
+
+const alertError = (message) => {
+  Toastify.toast({
+    text: message,
+    duration: 5000,
+    close: false,
+    style: {
+      background: 'red',
+      color: 'white',
+      textAlign: 'center',
+    }
+  })
+};
+
+const alertSuccess = (message) => {
+  Toastify.toast({
+    text: message,
+    duration: 5000,
+    close: false,
+    style: {
+      background: 'green',
+      color: 'white',
+      textAlign: 'center',
+    }
+  })
+};
 
 img.addEventListener('change', loadImage);
