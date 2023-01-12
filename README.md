@@ -1,2 +1,2 @@
 # ElectronStudy
-First Electron Apps
+Studies for Electron
