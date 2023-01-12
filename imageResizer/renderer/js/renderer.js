@@ -27,7 +27,38 @@ const loadImage = (event) => {
   form.style.display = 'block';
   filename.innerText = file.name;
   outputPath.innerText = path.join(os.homedir(), 'imageresizer')
-}
+};
+
+//Send Image Data to main
+const sendImage = (event) => {
+  event.preventDefault();
+
+  const width = widthInput.value;
+  const height = heightInput.value;
+  const imgPath = img.files[0].path;
+
+  if(!img.files[0]){
+    alertError('Please upload an image.')
+    return;
+  };
+
+  if(width === '' || height === ''){
+    alertError('Please fill in a height and width.')
+    return;
+  };
+
+  // Send to main using ipcRenderer (included to Electron)
+  ipcRenderer.send('image:resize', {
+    imgPath,
+    width,
+    height,
+  })
+};
+
+// Catch the image:done event
+ipcRenderer.on('image:done', () => {
+  alertSuccess(`Image resized to ${widthInput.value} x ${heightInput.value}`)
+})
 
 // Make Sure file is image
 const isFileImage = (file) => {
@@ -62,3 +93,4 @@ const alertSuccess = (message) => {
 };
 
 img.addEventListener('change', loadImage);
+form.addEventListener('submit', sendImage)

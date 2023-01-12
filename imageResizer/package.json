@@ -12,6 +12,8 @@
   "dependencies": {
     "electron": "^22.0.1",
     "npm": "^9.2.0",
+    "resize-image": "^0.1.0",
+    "resize-img": "^2.0.0",
     "toastify-js": "^1.12.0"
   }
 }
